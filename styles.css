@@ -66,11 +66,12 @@
     --container-padding: 1em 2em;
     --border-radius: 1em;
     --label-color: rgb(211, 211, 211);
-    --form-label-gap: 5px;
-    --form-element-gap: 0.65em;
+    --form-label-gap: 7px;
+    --form-element-gap: 1rem;
     --font-size: clamp(16px, 15px + 0.2vw, 18px);
-    --form-input-size: clamp(1.5rem, 1.5rem + 1vw, 2.75rem);
+    --form-input-size: clamp(1.2rem, 1.2rem + 1vw, 2rem);
     --checkbox-size: 1rem;
+    --form-input-border-radius: 5px;
 }
 
 html {
@@ -144,6 +145,7 @@ form label {
     color: var(--label-color);
     font-weight: 100;
     letter-spacing: 1px;
+    transition: color 0.3s ease;
 }
 
 fieldset {
@@ -161,6 +163,10 @@ form fieldset>div {
     flex-direction: column;
     gap: var(--form-label-gap);
     justify-content: center;
+}
+
+form fieldset>div:has(:focus) label {
+    color: white;
 }
 
 #newsletter-container {
@@ -264,10 +270,18 @@ form select {
 }
 
 form input:not([type="checkbox"]) {
-    background: none;
     border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     color: white;
+    background: linear-gradient(90deg, #56c7ff, #7d8cff 50%, #df7dff) no-repeat left bottom;
+    background-size: 0% 2px;
+    transition: background-size 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-bottom-color 0.35s ease;
+}
+
+form input:not([type="checkbox"]):focus {
+    outline: none;
+    border-bottom-color: transparent;
+    background-size: 100% 2px;
 }
 
 input[type="date"] {
@@ -282,10 +296,19 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
 }
 
 form select {
-    background: none;
     color: white;
     border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     margin: 0;
     padding: 0.25rem 0.625rem;
+    height: var(--form-input-size);
+    background: linear-gradient(90deg, #56c7ff, #7d8cff 50%, #df7dff) no-repeat left bottom;
+    background-size: 0% 2px;
+    transition: background-size 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-bottom-color 0.35s ease;
+}
+
+form select:focus {
+    outline: none;
+    border-bottom-color: transparent;
+    background-size: 100% 2px;
 }
