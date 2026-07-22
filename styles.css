@@ -63,18 +63,17 @@
 }
 
 :root {
-    --container-padding: clamp(0.75em, 2vh, 1em) clamp(1.25em, 4vw, 2em);
+    --container-padding: 1em 2em;
     --border-radius: 1em;
     --label-color: rgb(211, 211, 211);
-    --form-label-gap: clamp(4px, 0.8vh, 7px);
-    --form-element-gap: clamp(0.5rem, 1.6vh, 1rem);
+    --form-label-gap: 7px;
+    --form-element-gap: 1rem;
     --font-size: clamp(16px, 15px + 0.2vw, 18px);
     --form-input-size: clamp(1.2rem, 1.2rem + 1vw, 2rem);
     --checkbox-size: 1rem;
     --form-input-border-radius: 5px;
     --gradient-start: #3ec0f0;
     --gradient-end: #009346;
-    --body-padding: clamp(12px, 3vh, 24px);
 }
 
 html {
@@ -91,16 +90,16 @@ html,
 h1 {
     padding: 0;
     margin: 0;
-    margin: clamp(0.5rem, 1.6vh, 1rem) 0;
+    margin: 1rem 0;
 }
 
 body {
     margin: 0;
-    min-height: 100dvh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: var(--body-padding);
+    padding: 24px;
     background-color: #000;
     background-image: linear-gradient(315deg, #131313 0%, #111113 53%, #141418 100%);
     color: white;
@@ -117,7 +116,7 @@ body {
 }
 
 form svg {
-    width: clamp(18%, 5vh + 15%, 30%);
+    width: 30%;
     height: auto;
     align-self: center;
 }
@@ -125,8 +124,6 @@ form svg {
 #form-container {
     position: relative;
     width: min(100%, 600px);
-    max-height: calc(100dvh - 2 * var(--body-padding));
-    overflow-y: auto;
     border-radius: var(--border-radius);
     padding: var(--container-padding);
     box-shadow: 10px 10px 45px 0px rgb(0, 0, 0);
@@ -178,7 +175,7 @@ fieldset {
     display: flex;
     flex-direction: column;
     gap: var(--form-element-gap);
-    margin-bottom: var(--form-element-gap);
+    margin-bottom: 1rem;
 }
 
 form fieldset>div {
@@ -197,7 +194,7 @@ form fieldset>div:has(:focus) label {
     flex-direction: row;
     gap: 15px;
     align-items: center;
-    margin-bottom: var(--form-element-gap);
+    margin-bottom: 1rem;
 }
 
 form input[type="checkbox"] {
