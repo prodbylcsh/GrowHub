@@ -10,54 +10,77 @@
 </head>
 
 <body>
-    <form method="post" action="#" id="">
-        <div id="logo-container"></div>
-        <h1 id="form-header">REGISTRAČNÍ FORMULÁŘ</h1>
-        <fieldset>
-            <div id="first-name-container">
-                <label for="first-name">Jméno</label>
-                <input type="text" id="first-name" name="firstName" />
+    <div id="form-container">
+        <form method="post" action="#" id="registration">
+            <div id="logo-container"></div>
+            <h1 id="form-header">REGISTRAČNÍ FORMULÁŘ</h1>
+            <fieldset>
+                <div id="first-name-container">
+                    <label for="first-name">Jméno</label>
+                    <input type="text" id="first-name" name="firstName" required />
+                </div>
+
+                <div id="last-name-container">
+                    <label for="last-name">Příjmení</label>
+                    <input type="text" id="last-name" name="lastName" required />
+                </div>
+
+                <div id="date-of-birth-container">
+                    <label for="date-of-birth">Datum narození</label>
+                    <input type="date" id="date-of-birth" name="dateOfBirth" required />
+                </div>
+
+                <div id="city-container">
+                    <label for="city">Město</label>
+                    <input type="text" id="city" name="city" list="citySuggestions" required />
+                    <datalist id="citySuggestions">
+                        <option>Praha</option>
+                        <option>Brno</option>
+                        <option>Ostrava</option>
+                        <option>Olomouc</option>
+                        <option>Liberec</option>
+                        <option>Plzeň</option>
+                        <option>Příbram</option>
+                        <option>Benešov</option>
+                        <option>Znojmo</option>
+                        <option>Hradec Králové</option>
+                        <option>České Budějovice</option>
+                    </datalist>
+                </div>
+
+                <div id="email-container">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+
+                <div id="invitation-container">
+                    <label for="invitation">Pozvánka od</label>
+                    <select id="invitation" name="invitation" required>
+                        <option value="">--Vyberte položku--</option>
+                        <option value="2">Daniel Hlaváč</option>
+                        <option value="3">Lukáš Schöbel</option>
+                        <option value="4">Milan Schöbel</option>
+                        <option value="5">Tomáš Adam</option>
+                        <option value="6">Vojtěch Šedivý</option>
+                        <option value="7">Vojtěch Šťastný</option>
+                        <option value="1">O komunitě jsem se dozvěděl jinak</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <div id="newsletter-container">
+                <label for="newsletter">Odběr newsletteru</label>
+                <input type="checkbox" name="newsletter" id="newsletter" value="0" />
             </div>
-            <div id="last-name-container">
-                <label for="last-name">Příjmení</label>
-                <input type="text" id="last-name" name="lastName" />
-            </div>
-            <div id="date-of-birth-container">
-                <label for="date-of-birth">Datum narození</label>
-                <input type="date" id="date-of-birth" name="dateOfBirth" />
-            </div>
-            <div id="city-container">
-                <label for="city">Město</label>
-                <input type="text" id="city" name="city" list="citySuggestions" />
-                <datalist id="citySuggestions">
-                    <option>Praha</option>
-                    <option>Brno</option>
-                    <option>Ostrava</option>
-                    <option>Olomouc</option>
-                    <option>Liberec</option>
-                    <option>Plzeň</option>
-                    <option>Příbram</option>
-                    <option>Benešov</option>
-                    <option>Znojmo</option>
-                    <option>Hradec Králové</option>
-                    <option>České Budějovice</option>
-                </datalist>
-            </div>
-            <div id="invitation-container">
-                <label for="invitation">Pozvánka od</label>
-                <select id="invitation" name="invitation">
-                    <option value="">--Vyberte položku--</option>
-                    <option value="2">Daniel Hlaváč</option>
-                    <option value="3">Lukáš Schöbel</option>
-                    <option value="4">Milan Schöbel</option>
-                    <option value="5">Tomáš Adam</option>
-                    <option value="6">Vojta Šedivý</option>
-                    <option value="7">Vojta Šťastný</option>
-                    <option value="1">O projektu jsem se dozvěděl jinak</option>
-                </select>
-            </div>
-        </fieldset>
-    </form>
+
+            <button type="submit" id="submit-button">REGISTROVAT SE</button>
+        </form>
+        <div id="gdpr-notice">
+            Kliknutím na tlačítko "Registrovat se" beru na vědomí, že mé osobní údaje budou zpracovány za účelem
+            poskytnutí přístupu na Discord server komunity. Podrobné informace o zpracování naleznete <a
+                href="gdpr.html">zde</a>.
+        </div>
+    </div>
 </body>
 
 </html>
