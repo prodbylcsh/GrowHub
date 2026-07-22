@@ -66,12 +66,14 @@
     --container-padding: 1em 2em;
     --border-radius: 1em;
     --label-color: rgb(211, 211, 211);
-    --form-label-gap: 7px;
-    --form-element-gap: 1rem;
+    /* Vertical rhythm shrinks on short viewports so the form can fit without scroll */
+    --form-label-gap: clamp(4px, 0.6dvh, 7px);
+    --form-element-gap: clamp(0.55rem, 1.7dvh, 1rem);
     --font-size: clamp(16px, 15px + 0.2vw, 18px);
     --form-input-size: clamp(1.2rem, 1.2rem + 1vw, 2rem);
     --checkbox-size: 1rem;
     --form-input-border-radius: 5px;
+    --body-padding: 24px;
     --gradient-start: #3ec0f0;
     --gradient-end: #009346;
 }
@@ -89,17 +91,18 @@ html,
 
 h1 {
     padding: 0;
-    margin: 0;
-    margin: 1rem 0;
+    margin: var(--form-element-gap) 0;
 }
 
 body {
     margin: 0;
     min-height: 100vh;
+    /* dvh accounts for mobile browser chrome so 100vh doesn't overshoot the visible area */
+    min-height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 24px;
+    padding: var(--body-padding);
     background-color: #000;
     background-image: linear-gradient(315deg, #131313 0%, #111113 53%, #141418 100%);
     color: white;
@@ -108,10 +111,7 @@ body {
 @media (max-width: 400px) {
     :root {
         --container-padding: 1em;
-    }
-
-    body {
-        padding: 12px;
+        --body-padding: 12px;
     }
 }
 
@@ -124,6 +124,12 @@ form svg {
 #form-container {
     position: relative;
     width: min(100%, 600px);
+    /* Never taller than the visible viewport; if content still doesn't fit,
+       it scrolls inside the card instead of the page (no horizontal scroll). */
+    max-height: calc(100dvh - 2 * var(--body-padding));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
     border-radius: var(--border-radius);
     padding: var(--container-padding);
     box-shadow: 10px 10px 45px 0px rgb(0, 0, 0);
@@ -175,7 +181,7 @@ fieldset {
     display: flex;
     flex-direction: column;
     gap: var(--form-element-gap);
-    margin-bottom: 1rem;
+    margin-bottom: var(--form-element-gap);
 }
 
 form fieldset>div {
@@ -194,7 +200,7 @@ form fieldset>div:has(:focus) label {
     flex-direction: row;
     gap: 15px;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: var(--form-element-gap);
 }
 
 form input[type="checkbox"] {
@@ -212,6 +218,9 @@ form select {
 form input:not([type="checkbox"]),
 form select {
     width: 100%;
+    /* min-width:0 overrides the intrinsic min-width so controls can't push past the container */
+    min-width: 0;
+    max-width: 100%;
     min-height: var(--form-input-size);
     padding: 0.25rem 0.625rem;
     font: inherit;
@@ -315,6 +324,17 @@ input[type="date"] {
     color-scheme: dark;
     color: white;
     -webkit-text-fill-color: white;
+    /* iOS Safari sizes date inputs by their native content and ignores width;
+       stripping the native appearance + min-width:0 stops it overflowing the container */
+    -webkit-appearance: none;
+    appearance: none;
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Keep the value left-aligned instead of iOS's default centering */
+input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;
 }
 
 input[type="date"]::-webkit-datetime-edit,
