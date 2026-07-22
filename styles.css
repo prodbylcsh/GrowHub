@@ -136,9 +136,10 @@ form svg {
 }
 
 #form-header {
-    letter-spacing: 5px;
+    letter-spacing: clamp(1px, 1.2vw, 5px);
     text-align: center;
     font-weight: 100;
+    font-size: clamp(1.35rem, 8vw, 2rem);
 }
 
 form {
