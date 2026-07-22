@@ -69,7 +69,7 @@
     --form-label-gap: 5px;
     --form-element-gap: 0.65em;
     --font-size: clamp(16px, 15px + 0.2vw, 18px);
-    --form-input-size: clamp(2rem, 1.75rem + 1vw, 2.75rem);
+    --form-input-size: clamp(1.5rem, 1.5rem + 1vw, 2.75rem);
     --checkbox-size: 1rem;
 }
 
@@ -261,4 +261,22 @@ form select {
 #submit-button:focus-visible {
     outline: 2px solid rgba(145, 175, 255, 0.85);
     outline-offset: 4px;
+}
+
+form input:not([type="checkbox"]) {
+    background: none;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+}
+
+input[type="date"] {
+    color-scheme: dark;
+    color: white;
+    -webkit-text-fill-color: white;
+}
+
+input[type="date"]::-webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    color: white;
 }
