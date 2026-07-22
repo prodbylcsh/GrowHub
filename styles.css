@@ -72,6 +72,8 @@
     --form-input-size: clamp(1.2rem, 1.2rem + 1vw, 2rem);
     --checkbox-size: 1rem;
     --form-input-border-radius: 5px;
+    --gradient-start: #3ec0f0;
+    --gradient-end: #009346;
 }
 
 html {
@@ -262,7 +264,7 @@ form select {
     inset: 0;
     padding: 1.5px;
     border-radius: inherit;
-    background: conic-gradient(from var(--button-border-angle), #56c7ff, #7d8cff 32%, #df7dff 58%, #8b7dff 78%, #56c7ff);
+    background: conic-gradient(from var(--button-border-angle), var(--gradient-start), var(--gradient-end), var(--gradient-start));
     pointer-events: none;
     transition: --button-border-angle 700ms cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-mask:
@@ -298,7 +300,7 @@ form input:not([type="checkbox"]) {
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     color: white;
-    background: linear-gradient(90deg, #56c7ff, #7d8cff 50%, #df7dff) no-repeat left bottom;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)) no-repeat left bottom;
     background-size: 0% 2px;
     transition: background-size 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-bottom-color 0.35s ease;
 }
@@ -327,7 +329,7 @@ form select {
     margin: 0;
     padding: 0.25rem 0.625rem;
     height: var(--form-input-size);
-    background: linear-gradient(90deg, #56c7ff, #7d8cff 50%, #df7dff) no-repeat left bottom;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)) no-repeat left bottom;
     background-size: 0% 2px;
     transition: background-size 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-bottom-color 0.35s ease;
 }
@@ -336,4 +338,12 @@ form select:focus {
     outline: none;
     border-bottom-color: transparent;
     background-size: 100% 2px;
+}
+
+a {
+    color: var(--gradient-start);
+}
+
+a:visited {
+    color: var(--gradient-end);
 }
