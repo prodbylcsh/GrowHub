@@ -68,8 +68,9 @@
     --label-color: rgb(211, 211, 211);
     --form-label-gap: 5px;
     --form-element-gap: 0.65em;
-    --font-size: clamp(1rem, 0.75rem + 0.9vw, 2rem);
-    --checkbox-size: 0.75rem;
+    --font-size: clamp(16px, 15px + 0.2vw, 18px);
+    --form-input-size: clamp(2rem, 1.75rem + 1vw, 2.75rem);
+    --checkbox-size: 1rem;
 }
 
 html {
@@ -167,6 +168,7 @@ form fieldset>div {
     flex-direction: row;
     gap: 15px;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
 form input[type="checkbox"] {
@@ -181,8 +183,13 @@ form select {
     line-height: 1rem;
 }
 
+form input:not([type="checkbox"]),
 form select {
-    height: var(--font-size);
+    width: 100%;
+    min-height: var(--form-input-size);
+    padding: 0.25rem 0.625rem;
+    font: inherit;
+    line-height: 1.2;
 }
 
 #register-container {
@@ -193,6 +200,65 @@ form select {
 
 #gdpr-notice {
     font-style: italic;
-    font-size: calc(var(--font-size)/2);
+    font-size: 0.75rem;
     color: rgb(122, 122, 122);
+}
+
+@property --button-border-angle {
+    syntax: "<angle>";
+    initial-value: 0turn;
+    inherits: false;
+}
+
+#submit-button {
+    position: relative;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.08);
+    color: white;
+    font: inherit;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    cursor: pointer;
+    transition: transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+#submit-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.5px;
+    border-radius: inherit;
+    background: conic-gradient(from var(--button-border-angle), #56c7ff, #7d8cff 32%, #df7dff 58%, #8b7dff 78%, #56c7ff);
+    pointer-events: none;
+    transition: --button-border-angle 700ms cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+#submit-button:hover::before {
+    --button-border-angle: 1turn;
+}
+
+#submit-button:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.035);
+    box-shadow: 0 0 18px rgba(126, 140, 255, 0.18);
+}
+
+#submit-button:active {
+    transform: translateY(0);
+}
+
+#submit-button:focus-visible {
+    outline: 2px solid rgba(145, 175, 255, 0.85);
+    outline-offset: 4px;
 }
