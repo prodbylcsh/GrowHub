@@ -130,10 +130,18 @@ body {
 }
 
 input::placeholder,
-textarea::placeholder,
-input[type="date"]:invalid {
+textarea::placeholder {
     color: #777;
     opacity: 0.5;
+    font-size: 0.95rem;
+}
+
+/* Prázdné datum ztlumíme jen na textu placeholderu (přes datetime-edit),
+   ne přes opacity celého inputu – jinak by zmizela i nativní ikona kalendáře.
+   Musíme přebít -webkit-text-fill-color: white z inputu. */
+input[type="date"]:invalid::-webkit-datetime-edit {
+    color: #777;
+    -webkit-text-fill-color: #777;
     font-size: 0.95rem;
 }
 
@@ -391,6 +399,23 @@ input[type="date"]::-webkit-date-and-time-value {
     text-align: left;
 }
 
+/* Nativní ikona kalendáře (Safari/Chrome) – držíme ji viditelnou a klikatelnou,
+   warning značka pak sedí těsně vlevo od ní (viz .field-error--offset). */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* Spin button jen zbytečně zabírá místo vpravo. */
+input[type="date"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
 input[type="date"]::-webkit-datetime-edit,
 input[type="date"]::-webkit-datetime-edit-fields-wrapper {
     color: white;
@@ -439,6 +464,89 @@ form fieldset>div:has(.form-input:required:user-invalid)::after {
             var(--error-end));
 
     background-size: 100% 100%;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Chybová značka + tooltip                                                   */
+/* -------------------------------------------------------------------------- */
+
+.field-error {
+    /* Kontejner pole je position: relative – značku napozicujeme dovnitř,
+       na pravý konec inputu. Přesné top/height nastavuje JS (positionMarker),
+       aby ikona seděla svisle na střed pole (výška se liší u date/select). */
+    position: absolute;
+    right: 0.5rem;
+    top: 0;
+    height: var(--form-input-size);
+    display: none;
+    align-items: center;
+    /* Kliká se jen na ikonu, zbytek propouští kliknutí do inputu. */
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Odsazení, aby značka nepřekrývala nativní šipku selectu / ikonu kalendáře. */
+.field-error--offset {
+    right: 1.75rem;
+}
+
+.field-error.is-visible {
+    display: flex;
+}
+
+.field-error__icon {
+    pointer-events: auto;
+    display: grid;
+    place-items: center;
+    width: 1.15rem;
+    height: 1.15rem;
+    cursor: help;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+
+.field-error__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.field-error__tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    width: max-content;
+    max-width: 220px;
+    padding: 0.4rem 0.6rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--error-start), var(--error-end));
+    color: #131313;
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.2px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    /* Skrytý stav – plynulé objevení. */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+
+/* Malá šipka směřující k ikoně. */
+.field-error__tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 0.4rem;
+    border: 6px solid transparent;
+    border-top-color: var(--error-end);
+}
+
+/* Tooltip je otevřený, dokud je značka ve stavu is-open (řídí JS – auto + klik). */
+.field-error.is-open .field-error__tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 input:-webkit-autofill,
