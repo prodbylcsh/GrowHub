@@ -114,7 +114,7 @@ body {
     /* Fallback color matches the gradient so chrome/overscroll areas blend in */
     background-color: #131313;
     background-image: linear-gradient(315deg,
-            (var(--background-gradient-start)) 0%,
+            var(--background-gradient-start) 0%,
             var(--background-gradient-middle) 53%,
             var(--background-gradient-end) 100%);
     /* Pin the gradient to the viewport so it always fills the visible area while scrolling */
