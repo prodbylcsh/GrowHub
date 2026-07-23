@@ -111,7 +111,10 @@ async function onSubmit(event) {
 
     console.log("Formulář je validní. Odesílám data:", data);
 
+    let registrationSuccess = false;
+
     setLoadingState(true);
+
     try {
         const response = await sendRegistration(data);
 
@@ -120,13 +123,8 @@ async function onSubmit(event) {
             return;
         }
 
+        registrationSuccess = true;
         await showSuccessState();
-
-        console.log("Backend odpověď:", response);
-
-        // později:
-        // window.location.href = "/registered.html";
-
     } catch (error) {
         showGlobalError(
             "Registraci nyní nelze dokončit. Zkuste to prosím později."
@@ -134,7 +132,9 @@ async function onSubmit(event) {
 
         console.error(error);
     } finally {
-        setLoadingState(false);
+        if (!registrationSuccess) {
+            setLoadingState(false);
+        }
     }
 }
 
@@ -415,7 +415,9 @@ function showSuccessState() {
     `;
 
     return new Promise(resolve => {
-        setTimeout(resolve, 250);
+        setTimeout(() => {
+            window.location.href = "./registered.html";
+        }, 500);
     });
 
 }
