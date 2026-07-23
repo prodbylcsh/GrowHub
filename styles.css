@@ -157,12 +157,14 @@ form svg {
     /* Never taller than the visible viewport; if content still doesn't fit,
        it scrolls inside the card instead of the page (no horizontal scroll). */
     max-height: calc(100dvh - 2 * var(--body-padding));
+    min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: thin;
     border-radius: var(--border-radius);
     padding: var(--container-padding);
     box-shadow: 10px 10px 45px 0px rgb(0, 0, 0);
+    scrollbar-gutter: stable;
 }
 
 #form-container::before {
@@ -589,4 +591,16 @@ select:-webkit-autofill {
 .loading-icon svg {
     width: 1.2em;
     height: 1.2em;
+}
+
+.global-error {
+    padding: 0.75rem;
+    border-radius: 8px;
+    color: #b00020;
+    background: rgba(176, 0, 32, 0.1);
+    flex-shrink: 0;
+}
+
+.global-error[hidden] {
+    display: none;
 }

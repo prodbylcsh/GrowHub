@@ -98,6 +98,8 @@ function onErrorIconKeydown(event) {
 async function onSubmit(event) {
     event.preventDefault();
 
+    clearGlobalError();
+
     const firstInvalid = validateAll();
 
     if (firstInvalid) {
@@ -111,7 +113,7 @@ async function onSubmit(event) {
 
     setLoadingState(true);
     try {
-        const result = await sendRegistration(data);
+        const response = await sendRegistration(data);
 
         if (!response.ok) {
             handleBackendError(response.data);
@@ -120,7 +122,7 @@ async function onSubmit(event) {
 
         await showSuccessState();
 
-        console.log("Backend odpověď:", result);
+        console.log("Backend odpověď:", response);
 
         // později:
         // window.location.href = "/registered.html";
@@ -416,4 +418,29 @@ function showSuccessState() {
         setTimeout(resolve, 250);
     });
 
+}
+
+function showGlobalError(message) {
+
+    const container = document.getElementById("global-error");
+
+    if (!container) {
+        console.error(message);
+        return;
+    }
+
+    container.textContent = message;
+    container.hidden = false;
+}
+
+function clearGlobalError() {
+
+    const container = document.getElementById("global-error");
+
+    if (!container) {
+        return;
+    }
+
+    container.textContent = "";
+    container.hidden = true;
 }
