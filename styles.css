@@ -579,3 +579,14 @@ select:-webkit-autofill {
     background-color: #131313;
     transition: background-color 9999s ease-out;
 }
+
+.loading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-icon svg {
+    width: 1.2em;
+    height: 1.2em;
+}
