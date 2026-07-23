@@ -235,7 +235,7 @@ function initErrorMarkers() {
         const marker = document.createElement("div");
         marker.className = "field-error";
         // U selectu / date inputu odsadíme značku, aby nepřekrývala nativní ovládání.
-        if (element.tagName === "SELECT" || element.type === "date") {
+        if (element.tagName === "SELECT") {
             marker.classList.add("field-error--offset");
         }
 

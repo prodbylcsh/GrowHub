@@ -429,11 +429,32 @@ form select {
     padding: 0.25rem 0.625rem;
     /* min-height (not height) + a comfortable line-height so the option text isn't clipped on iOS */
     min-height: var(--form-input-size);
-    height: auto;
+    height: 1.5rem;
     line-height: 1.4;
     background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)) no-repeat left bottom;
     background-size: 0% 2px;
     transition: background-size 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-bottom-color 0.35s ease;
+    -moz-appearance: none;
+    /* Firefox */
+    -webkit-appearance: none;
+    /* Safari and Chrome */
+    appearance: none;
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-arrow {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
 }
 
 form select:focus {
@@ -512,8 +533,8 @@ form fieldset>div:has(.form-input:required:user-invalid)::after {
 
 .field-error__tooltip {
     position: absolute;
-    bottom: calc(100% + 8px);
-    right: 0;
+    bottom: calc(100% + 6px);
+    right: -15%;
     width: max-content;
     max-width: 220px;
     padding: 0.4rem 0.6rem;
@@ -546,7 +567,6 @@ form fieldset>div:has(.form-input:required:user-invalid)::after {
 .field-error.is-open .field-error__tooltip {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
 }
 
 input:-webkit-autofill,
