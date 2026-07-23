@@ -163,9 +163,9 @@ form svg {
     width: min(100%, 600px);
     /* Never taller than the visible viewport; if content still doesn't fit,
        it scrolls inside the card instead of the page (no horizontal scroll). */
-    max-height: calc(100dvh - 2 * var(--body-padding));
+    max-height: none;
+    overflow: visible;
     min-height: 0;
-    overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: thin;
     border-radius: var(--border-radius);
