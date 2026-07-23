@@ -129,6 +129,13 @@ body {
     }
 }
 
+@media (max-width: 600px) {
+    form select {
+        font-size: 16px;
+        height: 2.5rem;
+    }
+}
+
 input::placeholder,
 textarea::placeholder {
     color: #777;
@@ -428,11 +435,11 @@ form select {
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     margin: 0;
-    padding: 0.25rem 0.625rem;
     /* min-height (not height) + a comfortable line-height so the option text isn't clipped on iOS */
     min-height: var(--form-input-size);
-    height: 1.5rem;
-    line-height: 1.4;
+    height: var(--form-input-size);
+    line-height: 1.2;
+    padding: 0.25rem 2.5rem 0.25rem 0.625rem;
     -moz-appearance: none;
     /* Firefox */
     -webkit-appearance: none;
@@ -602,5 +609,10 @@ select:-webkit-autofill {
 }
 
 .global-error[hidden] {
+    display: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
     display: none;
 }
