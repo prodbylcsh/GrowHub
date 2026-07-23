@@ -431,9 +431,6 @@ form select {
     min-height: var(--form-input-size);
     height: 1.5rem;
     line-height: 1.4;
-    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)) no-repeat left bottom;
-    background-size: 0% 2px;
-    transition: background-size 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-bottom-color 0.35s ease;
     -moz-appearance: none;
     /* Firefox */
     -webkit-appearance: none;
