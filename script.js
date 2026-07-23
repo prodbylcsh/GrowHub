@@ -2,7 +2,9 @@ const SUPABASE_URL = "https://vnutrvpsvqoveihpgibm.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Kw-0YWYsqSdL07CMlgyoUg_RIrB4-Ff";
 const form = document.querySelector("#registration");
 const submitButton = document.querySelector("#submit-button");
+const dateOfBirth = document.querySelector("#date-of-birth");
 
+initDateOfBirth();
 form.addEventListener("focusout", focusOut);
 
 // const supabaseClient = supabase.createClient({
@@ -37,4 +39,15 @@ function firstNameValidation(element) {
     }
 
     const value = element.value;
+}
+
+function initDateOfBirth() {
+    const today = new Date();
+    today.setFullYear(today.getFullYear() - 10);
+
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+
+    dateOfBirth.max = `${yyyy}-${mm}-${dd}`;
 }

@@ -78,13 +78,17 @@
     --gradient-end: #009346;
     --error-start: #ff9a9e;
     --error-end: #e97c9d;
+    --background-color: #131313;
+    --background-gradient-start: #131313;
+    --background-gradient-middle: #111113;
+    --background-gradient-end: #141418;
 }
 
 html {
     font-size: var(--font-size);
     line-height: 1;
     /* Fills the overscroll/bounce area and the space behind the browser chrome */
-    background-color: #131313;
+    background-color: var(--background-color);
 }
 
 html,
@@ -109,7 +113,10 @@ body {
     padding: var(--body-padding);
     /* Fallback color matches the gradient so chrome/overscroll areas blend in */
     background-color: #131313;
-    background-image: linear-gradient(315deg, #131313 0%, #111113 53%, #141418 100%);
+    background-image: linear-gradient(315deg,
+            (var(--background-gradient-start)) 0%,
+            var(--background-gradient-middle) 53%,
+            var(--background-gradient-end) 100%);
     /* Pin the gradient to the viewport so it always fills the visible area while scrolling */
     background-attachment: fixed;
     color: white;
@@ -120,6 +127,14 @@ body {
         --container-padding: 1em;
         --body-padding: 12px;
     }
+}
+
+input::placeholder,
+textarea::placeholder,
+input[type="date"]:invalid {
+    color: #777;
+    opacity: 0.5;
+    font-size: 0.95rem;
 }
 
 form svg {
@@ -192,6 +207,7 @@ fieldset {
 }
 
 form fieldset>div {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--form-label-gap);
@@ -200,6 +216,33 @@ form fieldset>div {
 
 form fieldset>div:has(:focus) label {
     color: white;
+}
+
+form fieldset>div::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg,
+            var(--gradient-start),
+            var(--gradient-end));
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+form fieldset>div:has(input:focus)::after,
+form fieldset>div:has(select:focus)::after {
+    background-size: 100% 100%;
+}
+
+form fieldset>div:has(input:not([type="checkbox"]):valid:not(:focus))::after,
+form fieldset>div:has(select:valid:not(:focus))::after,
+form fieldset>div:has(input:-webkit-autofill:not(:focus))::after {
+    background-size: 100% 100%;
 }
 
 #newsletter-container {
@@ -224,14 +267,20 @@ form select {
 
 form input:not([type="checkbox"]),
 form select {
+    position: relative;
     width: 100%;
-    /* min-width:0 overrides the intrinsic min-width so controls can't push past the container */
     min-width: 0;
     max-width: 100%;
     min-height: var(--form-input-size);
     padding: 0.25rem 0.625rem;
     font: inherit;
     line-height: 1.2;
+    border-radius: 10px;
+    color: white;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    transition: border-bottom-color 0.35s ease;
 }
 
 #registration {
@@ -316,15 +365,13 @@ form input:not([type="checkbox"]) {
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     color: white;
-    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)) no-repeat left bottom;
-    background-size: 0% 2px;
-    transition: background-size 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-bottom-color 0.35s ease;
+    background: transparent;
+    outline: none;
+    transition: border-bottom-color 0.35s ease;
 }
 
 form input:not([type="checkbox"]):focus {
-    outline: none;
     border-bottom-color: transparent;
-    background-size: 100% 2px;
 }
 
 input[type="date"] {
@@ -384,7 +431,26 @@ a:visited {
 
 .form-input:required:user-invalid {
     border: none;
-    border-bottom: 2px solid transparent;
-    background: linear-gradient(90deg, var(--error-start), var(--error-end)) no-repeat left bottom;
-    background-size: 100% 2px;
+}
+
+form fieldset>div:has(.form-input:required:user-invalid)::after {
+    background: linear-gradient(90deg,
+            var(--error-start),
+            var(--error-end));
+
+    background-size: 100% 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+select:-webkit-autofill {
+    -webkit-text-fill-color: white;
+    caret-color: white;
+
+    -webkit-box-shadow: 0 0 0 1000px #202020 inset;
+    box-shadow: 0 0 0 1000px #202020 inset;
+
+    background-color: #131313;
+    transition: background-color 9999s ease-out;
 }
