@@ -1,5 +1,6 @@
 const SUPABASE_URL = "https://vnutrvpsvqoveihpgibm.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Kw-0YWYsqSdL07CMlgyoUg_RIrB4-Ff";
+const REGISTER_ENDPOINT = "https://vnutrvpsvqoveihpgibm.supabase.co/functions/v1/register";
 const form = document.querySelector("#registration");
 const submitButton = document.querySelector("#submit-button");
 const dateOfBirth = document.querySelector("#date-of-birth");
@@ -85,7 +86,7 @@ function onErrorIconKeydown(event) {
     icon.closest(".field-error").classList.toggle("is-open");
 }
 
-function onSubmit(event) {
+async function onSubmit(event) {
     event.preventDefault();
 
     const firstInvalid = validateAll();
@@ -100,10 +101,11 @@ function onSubmit(event) {
 
     setLoadingState(true);
     try {
-        //await sendRegistration(data);
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        const result = await sendRegistration(data);
 
-        console.log("Registrace proběhla úspěšně.");
+        console.log("Backend odpověď:", result);
+    } catch (error) {
+        console.error(error);
     } finally {
         setLoadingState(false);
     }
@@ -342,15 +344,20 @@ function setLoadingState(isLoading) {
 
 async function sendRegistration(data) {
 
-    const response = await fetch("/api/register", {
+    const response = await fetch(REGISTER_ENDPOINT, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_PUBLISHABLE_KEY,
         },
         body: JSON.stringify(data)
     });
 
     const result = await response.json();
 
-    console.log("Backend odpověď:", result);
+    if (!response.ok) {
+        throw new Error(result.message || "Registrace se nepodařila.");
+    }
+
+    return result;
 }
