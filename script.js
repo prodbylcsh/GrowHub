@@ -1,6 +1,15 @@
 const SUPABASE_URL = "https://vnutrvpsvqoveihpgibm.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Kw-0YWYsqSdL07CMlgyoUg_RIrB4-Ff";
 const REGISTER_ENDPOINT = "https://vnutrvpsvqoveihpgibm.supabase.co/functions/v1/register";
+const BACKEND_FIELD_MAP = {
+    firstName: "first-name",
+    lastName: "last-name",
+    dateOfBirth: "date-of-birth",
+    city: "city",
+    email: "email",
+    invitation: "invitation"
+};
+
 const form = document.querySelector("#registration");
 const submitButton = document.querySelector("#submit-button");
 const dateOfBirth = document.querySelector("#date-of-birth");
@@ -90,6 +99,7 @@ async function onSubmit(event) {
     event.preventDefault();
 
     const firstInvalid = validateAll();
+
     if (firstInvalid) {
         firstInvalid.focus();
         return;
@@ -103,8 +113,23 @@ async function onSubmit(event) {
     try {
         const result = await sendRegistration(data);
 
+        if (!response.ok) {
+            handleBackendError(response.data);
+            return;
+        }
+
+        await showSuccessState();
+
         console.log("Backend odpověď:", result);
+
+        // později:
+        // window.location.href = "/registered.html";
+
     } catch (error) {
+        showGlobalError(
+            "Registraci nyní nelze dokončit. Zkuste to prosím později."
+        );
+
         console.error(error);
     } finally {
         setLoadingState(false);
@@ -355,9 +380,40 @@ async function sendRegistration(data) {
 
     const result = await response.json();
 
-    if (!response.ok) {
-        throw new Error(result.message || "Registrace se nepodařila.");
+    return {
+        ok: response.ok,
+        data: result
+    };
+}
+
+function handleBackendError(error) {
+    if (error.type === "validation") {
+
+        for (const [field, message] of Object.entries(error.errors)) {
+            const elementId = BACKEND_FIELD_MAP[field];
+            const element = document.getElementById(field);
+
+            if (element) {
+                showError(element, message);
+            }
+        }
+
+        return;
     }
 
-    return result;
+    showGlobalError(
+        error.message ||
+        "Nastala chyba."
+    );
+}
+
+function showSuccessState() {
+    submitButton.innerHTML = `
+        ✓ HOTOVO
+    `;
+
+    return new Promise(resolve => {
+        setTimeout(resolve, 250);
+    });
+
 }
