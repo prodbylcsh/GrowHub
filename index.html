@@ -60,33 +60,36 @@
             <h1 id="form-header">REGISTRACE</h1>
             <fieldset>
                 <div id="first-name-container">
-                    <label for="first-name">Jméno</label>
-                    <input type="text" id="first-name" name="firstName" required />
+                    <div class="label-container">
+                        <label for="first-name">Jméno</label><span> *</span>
+                    </div>
+                    <input type="text" id="first-name" name="firstName" class="form-input" minlength="1" maxlength="255"
+                        required />
                 </div>
 
                 <div id="last-name-container">
-                    <label for="last-name">Příjmení</label>
-                    <input type="text" id="last-name" name="lastName" required />
+                    <div class="label-container"><label for="last-name">Příjmení</label><span> *</span></div>
+                    <input type="text" id="last-name" name="lastName" class="form-input" required />
                 </div>
 
                 <div id="date-of-birth-container">
-                    <label for="date-of-birth">Datum narození</label>
-                    <input type="date" id="date-of-birth" name="dateOfBirth" required />
+                    <div class="label-container"><label for="date-of-birth">Datum narození</label><span> *</span></div>
+                    <input type="date" id="date-of-birth" name="dateOfBirth" class="form-input" required />
                 </div>
 
                 <div id="city-container">
-                    <label for="city">Město</label>
-                    <input type="text" id="city" name="city" required />
+                    <div class="label-container"><label for="city">Město</label><span> *</span></div>
+                    <input type="text" id="city" name="city" class="form-input" required />
                 </div>
 
                 <div id="email-container">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required />
+                    <div class="label-container"><label for="email">E-mail</label><span> *</span></div>
+                    <input type="email" id="email" name="email" class="form-input" required />
                 </div>
 
                 <div id="invitation-container">
-                    <label for="invitation">Pozvánka od</label>
-                    <select id="invitation" name="invitation" required>
+                    <div class="label-container"><label for="invitation">Pozvánka od</label><span> *</span></div>
+                    <select id="invitation" name="invitation" class="form-input" required>
                         <option value="">--Vyberte položku--</option>
                         <option value="2">Daniel Hlaváč</option>
                         <option value="3">Lukáš Schöbel</option>
@@ -100,7 +103,7 @@
             </fieldset>
 
             <div id="newsletter-container">
-                <input type="checkbox" name="newsletter" id="newsletter" value="0" />
+                <input type="checkbox" name="newsletter" id="newsletter" class="form-input" value="0" />
                 <label for="newsletter">Odběr newsletteru</label>
             </div>
 

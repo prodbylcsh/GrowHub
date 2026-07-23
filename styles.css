@@ -76,6 +76,8 @@
     --body-padding: 24px;
     --gradient-start: #3ec0f0;
     --gradient-end: #009346;
+    --error-start: #ff9a9e;
+    --error-end: #e97c9d;
 }
 
 html {
@@ -374,4 +376,15 @@ a {
 
 a:visited {
     color: var(--gradient-end);
+}
+
+.label-container span {
+    color: var(--gradient-start);
+}
+
+.form-input:required:user-invalid {
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: linear-gradient(90deg, var(--error-start), var(--error-end)) no-repeat left bottom;
+    background-size: 100% 2px;
 }
