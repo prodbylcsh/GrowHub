@@ -126,11 +126,11 @@ async function onSubmit(event) {
         registrationSuccess = true;
         await showSuccessState();
     } catch (error) {
+        console.error(error);
+
         showGlobalError(
             "Registraci nyní nelze dokončit. Zkuste to prosím později."
         );
-
-        console.error(error);
     } finally {
         if (!registrationSuccess) {
             setLoadingState(false);
@@ -402,6 +402,8 @@ function handleBackendError(error) {
 
         return;
     }
+
+    console.error(error);
 
     showGlobalError(
         error.message ||
