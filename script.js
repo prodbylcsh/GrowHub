@@ -124,7 +124,8 @@ async function onSubmit(event) {
         }
 
         registrationSuccess = true;
-        await showSuccessState();
+
+        await showSuccessState(response.data);
     } catch (error) {
         console.error(error);
 
@@ -411,14 +412,16 @@ function handleBackendError(error) {
     );
 }
 
-function showSuccessState() {
+function showSuccessState(data) {
     submitButton.innerHTML = `
         ✓ HOTOVO
     `;
 
     return new Promise(resolve => {
         setTimeout(() => {
-            window.location.href = "./registered.html";
+            sessionStorage.setItem("discordInvite", data.discordInvite);
+
+            window.location.href = "./zaregistrovano.html";
         }, 500);
     });
 
