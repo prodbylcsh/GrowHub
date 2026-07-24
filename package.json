@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/prodbylcsh/GrowHub#readme",
   "dependencies": {
-    "@supabase/supabase-js": "^2.110.8",
-    "modern-normalize": "^3.0.1"
+    "@supabase/supabase-js": "^2.110.8"
   }
 }
